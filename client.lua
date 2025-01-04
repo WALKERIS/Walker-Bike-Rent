@@ -3,14 +3,14 @@
 
 
 -- Function to spawn NPC at given coordinates
-function spawnNPC(x, y, z)
+function spawnNPC(x, y, z, h)
     local model = GetHashKey("a_m_m_business_01") -- Change to desired NPC model
     RequestModel(model)
     while not HasModelLoaded(model) do
         Wait(1)
     end
 
-    local npc = CreatePed(4, model, x, y, z, 0.0, false, true)
+    local npc = CreatePed(4, model, x, y, z, h, 0.0, false, true)
     SetEntityAsMissionEntity(npc, true, true)
     FreezeEntityPosition(npc, true)
     SetEntityInvincible(npc, true)
@@ -18,15 +18,28 @@ function spawnNPC(x, y, z)
     SetModelAsNoLongerNeeded(model)
 end
 
+-- Create blips for rental locations
+for _, location in ipairs(Config.RentalLocations) do
+    local blip = AddBlipForCoord(location.x, location.y, location.z)
+    SetBlipSprite(blip, 226) -- Change to desired blip icon
+    SetBlipDisplay(blip, 4)
+    SetBlipScale(blip, 0.8)
+    SetBlipColour(blip, 3) -- Change to desired blip color
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Dviračių nuoma")
+    EndTextCommandSetBlipName(blip)
+end
+
 -- Spawn NPCs at rental locations
 for _, location in ipairs(Config.RentalLocations) do
-    spawnNPC(location.x, location.y, location.z)
+    spawnNPC(location.x, location.y, location.z, location.h)
 end
 
 -- Add ox_target for rental locations
 for _, location in ipairs(Config.RentalLocations) do
     exports.ox_target:addBoxZone({
-        coords = vector3(location.x, location.y, location.z),
+        coords = vector3(location.x, location.y, location.z+1),
         size = vector3(1, 1, 2),
         rotation = 0,
         debugPoly = false,
@@ -68,7 +81,7 @@ function spawnBikeAtClosestLocation(playerCoords)
             Wait(1)
         end
 
-        local bike = CreateVehicle(model, closestCoords.x, closestCoords.y, closestCoords.z, 0.0, true, false)
+        local bike = CreateVehicle(model, closestCoords.x, closestCoords.y, closestCoords.z, closestCoords.h, 0.0, true, false)
         SetModelAsNoLongerNeeded(model)
 
         -- Seat player on the bike
