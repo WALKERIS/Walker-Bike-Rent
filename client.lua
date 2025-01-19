@@ -81,7 +81,7 @@ function spawnBikeAtClosestLocation(playerCoords)
             Wait(1)
         end
 
-        local bike = CreateVehicle(model, closestCoords.x, closestCoords.y, closestCoords.z, closestCoords.h, 0.0, true, false)
+        local bike = CreateVehicle(model, closestCoords.x, closestCoords.y, closestCoords.z, closestCoords.h, true, false)
         SetModelAsNoLongerNeeded(model)
 
         -- Seat player on the bike
@@ -98,11 +98,11 @@ end
 local sumokejo = false
 lib.registerContext({
     id = 'walker_bikerental',
-    title = 'Bike rental',
+    title = 'Dviraciu nuoma',
     options = {
       {
-        title = 'Bike Rental',
-        description = 'Bike rental options',
+        title = 'Dviraciu nuoma',
+        description = 'Dviraciu nuoma',
         icon = 'check',
         event = 'walker_bikerental:spawnBike',
         arrow = false,
