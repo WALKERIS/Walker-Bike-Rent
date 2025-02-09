@@ -1,11 +1,10 @@
--- Bike Rent Configuration
-
 Config = {}
-
--- General Settings
 
 -- Bike Models
 Config.BikeModels = "bmx"
+
+-- Rental Price
+Config.RentalPrice = 50 -- Pinigai, reikalingi dviračio nuomai
 
 -- Rental Locations
 Config.RentalLocations = {
@@ -18,8 +17,9 @@ Config.RentalLocations = {
     {x = 243.0053, y = -1392.1117, z = 29.5638, h = 172.2446}
 }
 
+-- Bike Spawn Locations
 Config.bikespawncords = {
-    {x = -1064.6606, y = -2559.9717, z = 19.4481, h = 149.1784}, --- bike spawn cords
+    {x = -1064.6606, y = -2559.9717, z = 19.4481, h = 149.1784},
     {x = 408.8185, y = -994.4149, z = 28.6481, h = 51.9098},
     {x = 280.8981, y = -585.8975, z = 42.6840, h = 338.6591},
     {x = -521.9013, y = -223.3950, z = 36.0905, h = 292.9698},
